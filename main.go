@@ -80,7 +80,7 @@ func main() {
 		})
 	})
 
-	cityList := [1]string{"Edmonton"}
+	cityList := [4]string{"Edmonton", "Calgary", "Red%20Deer", "Lethbridge"}
 	for _, element := range cityList {
 		// log.Println("https://myaccount.blood.ca/en/donate/select-clinic?apt-slc=" + element)
 		c.Visit("https://myaccount.blood.ca/en/donate/select-clinic?apt-slc=" + element)
