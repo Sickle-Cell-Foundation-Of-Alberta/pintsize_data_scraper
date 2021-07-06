@@ -1,14 +1,18 @@
 package main
 
 import (
+	"encoding/csv"
 	"encoding/json"
+	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 
 	"github.com/gocolly/colly"
 )
 
-// Implementation of Struct to be used to group our items
+// #Integrate Quickstart.go into main.go
+// Implementation of Struct. It is used to group related data to form a single unit.
 type Data struct {
 	Country           string
 	Donor_Centre      string
@@ -70,7 +74,7 @@ func main() {
 				})
 				donorDates := eh.Attr("value")
 				if donorDates == "" {
-					log.Println("No province found", e.Request.URL)
+					log.Println("No province found", eh.Request.URL)
 				} else {
 					data.Date = donorDates
 				}
@@ -91,4 +95,44 @@ func main() {
 
 	// Dump json to the standard output
 	enc.Encode(dataList)
+
+	jsonConversion()
+}
+
+func jsonConversion() {
+	jsonDataFromFile, err := ioutil.ReadFile("./cbs_data.json")
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	// Unmarshal JSON data
+	var jsonData []Data
+	err = json.Unmarshal([]byte(jsonDataFromFile), &jsonData)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	csvFile, err := os.Create("./cbs_data.csv")
+
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer csvFile.Close()
+
+	writer := csv.NewWriter(csvFile)
+
+	for _, element := range jsonData {
+		var row []string
+		row = append(row, element.Country)
+		row = append(row, element.Donor_Centre)
+		row = append(row, element.Province_location)
+		row = append(row, element.Address)
+		row = append(row, element.Date)
+		// log.Println(row)
+		writer.Write(row)
+	}
+	writer.Flush()
+
 }
