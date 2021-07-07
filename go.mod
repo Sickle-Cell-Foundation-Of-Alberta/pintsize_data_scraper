@@ -13,6 +13,7 @@ require (
 	github.com/gocolly/colly v1.2.0 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/lint v0.0.0-20180702182130-06c8688daad7 // indirect
+	github.com/joho/godotenv v1.3.0 // indirect
 	github.com/kennygrant/sanitize v1.2.4 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.1 // indirect
 	github.com/openzipkin/zipkin-go v0.1.1 // indirect

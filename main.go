@@ -7,11 +7,13 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"time"
 
+	"github.com/Sickle-Cell-Foundation-Of-Alberta/pintsize_data_scraper/googlesheet"
 	"github.com/gocolly/colly"
+	"github.com/joho/godotenv"
 )
 
-// #Integrate Quickstart.go into main.go
 // Implementation of Struct. It is used to group related data to form a single unit.
 type Data struct {
 	Country           string
@@ -22,7 +24,9 @@ type Data struct {
 }
 
 func main() {
-	fName := "cbs_data.json"
+	fileReinitialize()
+
+	fName := "./data/cbs_data.json"
 	file, err := os.Create(fName)
 	if err != nil {
 		log.Fatalf("Cannot create file %q: %s\n", fName, err)
@@ -38,7 +42,7 @@ func main() {
 		colly.CacheDir("./bloodServices_cache"),
 	)
 
-	dataList := make([]Data, 0, 200)
+	dataList := make([]Data, 0)
 
 	// Start of extracting of data
 	c.OnHTML(`ul.cbs_wss_booking_clinic_select_locations`, func(e *colly.HTMLElement) {
@@ -50,31 +54,31 @@ func main() {
 		e.ForEach("li", func(_ int, el *colly.HTMLElement) {
 			donorCentre := el.ChildText("div.title h3")
 			if donorCentre == "" {
-				log.Println("No province found", e.Request.URL)
+				log.Println("No province found", e.Request)
 			} else {
 				data.Donor_Centre = donorCentre
 			}
 
 			provinceLocation := el.ChildText("div.address2")
 			if provinceLocation == "" {
-				log.Println("No province found", e.Request.URL)
+				log.Println("No province found", e.Request)
 			} else {
 				data.Province_location = provinceLocation
 			}
 
 			address := el.ChildText("div.address1")
 			if address == "" {
-				log.Println("No province found", e.Request.URL)
+				log.Println("No province found", e.Request)
 			} else {
 				data.Address = address
 			}
 
 			el.ForEach("option", func(_ int, eh *colly.HTMLElement) {
-				eh.ForEach("value", func(_ int, ek *colly.HTMLElement) {
+				eh.ForEach("value", func(_ int, el *colly.HTMLElement) {
 				})
 				donorDates := eh.Attr("value")
 				if donorDates == "" {
-					log.Println("No province found", eh.Request.URL)
+					log.Println("No province found", eh.Request)
 				} else {
 					data.Date = donorDates
 				}
@@ -86,7 +90,6 @@ func main() {
 
 	cityList := [4]string{"Edmonton", "Calgary", "Red%20Deer", "Lethbridge"}
 	for _, element := range cityList {
-		// log.Println("https://myaccount.blood.ca/en/donate/select-clinic?apt-slc=" + element)
 		c.Visit("https://myaccount.blood.ca/en/donate/select-clinic?apt-slc=" + element)
 	}
 
@@ -97,10 +100,32 @@ func main() {
 	enc.Encode(dataList)
 
 	jsonConversion()
+
+}
+
+func fileReinitialize() {
+	err := os.RemoveAll("./data")
+	err1 := os.RemoveAll("./bloodServices_cache")
+	if err1 != nil {
+		log.Fatal(err)
+	}
+	err = os.Mkdir("data", 0755)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 }
 
 func jsonConversion() {
-	jsonDataFromFile, err := ioutil.ReadFile("./cbs_data.json")
+
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
+	secretKey := os.Getenv("spreadsheet_Id")
+
+	jsonDataFromFile, err := ioutil.ReadFile("./data/cbs_data.json")
 
 	if err != nil {
 		fmt.Println(err)
@@ -114,7 +139,7 @@ func jsonConversion() {
 		fmt.Println(err)
 	}
 
-	csvFile, err := os.Create("./cbs_data.csv")
+	csvFile, err := os.Create("./data/cbs_data.csv")
 
 	if err != nil {
 		fmt.Println(err)
@@ -123,16 +148,62 @@ func jsonConversion() {
 
 	writer := csv.NewWriter(csvFile)
 
-	for _, element := range jsonData {
+	spreadsheetId := secretKey
+
+	var googleServices googlesheet.GoogleSheet
+	if err := googleServices.Init(spreadsheetId); err != nil {
+		log.Fatalf("Unable to init google sheet api: %v\nCredential missing?", err)
+	}
+
+	readRange := "Sheet1!A:E"
+	values, err := googleServices.Read(readRange)
+	log.Println((len(values)))
+	if err != nil {
+		log.Fatalf("Unable to retrieve data from sheet: %v", err)
+	} else if len(values) >= 0 {
+		clearRange := "Sheet1!A:Z"
+		err = googleServices.Clear(clearRange)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+
+	var writeValues [][]interface{}
+	sheet_row := []interface{}{"id", "Country", "Donor Centre", "City", "Address", "Next Availability Date"}
+	writeValues = append(writeValues, sheet_row)
+	err = googleServices.Write("Sheet1", writeValues)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for index, element := range jsonData {
+		log.Println(index)
 		var row []string
 		row = append(row, element.Country)
 		row = append(row, element.Donor_Centre)
 		row = append(row, element.Province_location)
 		row = append(row, element.Address)
 		row = append(row, element.Date)
-		// log.Println(row)
+
+		var values []interface{}
+		values = append(values, element.Country, element.Donor_Centre, element.Province_location, element.Address, element.Date)
+		time.Sleep(4 * time.Second)
+
+		var writeValues [][]interface{}
+		sheet_row := []interface{}{index, element.Country, element.Donor_Centre, element.Province_location, element.Address, element.Date}
+		writeValues = append(writeValues, sheet_row)
+		err = googleServices.Write("Sheet1", writeValues)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		if err != nil {
+			log.Fatal(err)
+		}
+
 		writer.Write(row)
 	}
+
 	writer.Flush()
 
 }
