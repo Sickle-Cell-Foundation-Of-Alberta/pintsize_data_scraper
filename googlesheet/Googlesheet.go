@@ -7,6 +7,7 @@ import (
 	"google.golang.org/api/sheets/v4"
 )
 
+// grouped list of variables
 type GoogleSheet struct {
 	service       *sheets.Service
 	spreadsheetId string
@@ -16,6 +17,7 @@ const (
 	client_secret_path = "pintsize-client_secret.json"
 )
 
+// initialization of google sheets
 func (googleServices *GoogleSheet) Init(spreadsheetId string) (err error) {
 	googleServices.spreadsheetId = spreadsheetId
 	googleServices.service, err = sheets.NewService(context.Background(), option.WithCredentialsFile(client_secret_path), option.WithScopes(sheets.SpreadsheetsScope))
@@ -23,6 +25,7 @@ func (googleServices *GoogleSheet) Init(spreadsheetId string) (err error) {
 	return err
 }
 
+// Read function for google sheets
 func (googleServices *GoogleSheet) Read(readRange string) ([][]interface{}, error) {
 	readValues, err := googleServices.service.Spreadsheets.Values.Get(googleServices.spreadsheetId, readRange).Do()
 
@@ -32,6 +35,7 @@ func (googleServices *GoogleSheet) Read(readRange string) ([][]interface{}, erro
 	return readValues.Values, err
 }
 
+//Write function for google sheets
 func (googleServices *GoogleSheet) Write(writeRange string, values [][]interface{}) error {
 	valueInputOption := "RAW"
 	rb := &sheets.ValueRange{
@@ -43,6 +47,7 @@ func (googleServices *GoogleSheet) Write(writeRange string, values [][]interface
 	return err
 }
 
+//Update function for google sheets
 func (googleServices *GoogleSheet) Update(updateRange string, updateValues [][]interface{}) error {
 	valueInputOption := "RAW"
 	rb := &sheets.ValueRange{
@@ -54,6 +59,7 @@ func (googleServices *GoogleSheet) Update(updateRange string, updateValues [][]i
 	return err
 }
 
+///Clear function for google sheets
 func (googleServices *GoogleSheet) Clear(clearRange string) error {
 	rb := &sheets.ClearValuesRequest{}
 	_, err := googleServices.service.Spreadsheets.Values.Clear(googleServices.spreadsheetId, clearRange, rb).Do()
