@@ -24,8 +24,10 @@ type Data struct {
 }
 
 func main() {
+	// Checks and ensures that cahced filed along with any previous data has been erased and intialized.
 	fileReinitialize()
 
+	// Consutrct of the data files
 	fName := "./data/cbs_data.json"
 	file, err := os.Create(fName)
 	if err != nil {
@@ -42,6 +44,7 @@ func main() {
 		colly.CacheDir("./bloodServices_cache"),
 	)
 
+	// List that will  store the respectful data found.
 	dataList := make([]Data, 0)
 
 	// Start of extracting of data
@@ -50,7 +53,9 @@ func main() {
 		data := Data{
 			Country: country,
 		}
-		// Iterate over li components to construct the relevant info/data
+
+		// Iterate over every li components to construct the relevant info/data
+		// Correspond each data value with it's correct div
 		e.ForEach("li", func(_ int, el *colly.HTMLElement) {
 			donorCentre := el.ChildText("div.title h3")
 			if donorCentre == "" {
@@ -73,6 +78,8 @@ func main() {
 				data.Address = address
 			}
 
+			// Iterates for each option compoenent it's values to return it's corresponding data
+			// Correspond each data value to it's respectful variables
 			el.ForEach("option", func(_ int, eh *colly.HTMLElement) {
 				eh.ForEach("value", func(_ int, el *colly.HTMLElement) {
 				})
@@ -88,21 +95,25 @@ func main() {
 		})
 	})
 
+	// List of strings that contains different cities to query over and scrap the relevant data needed.
 	cityList := [4]string{"Edmonton", "Calgary", "Red%20Deer", "Lethbridge"}
 	for _, element := range cityList {
 		c.Visit("https://myaccount.blood.ca/en/donate/select-clinic?apt-slc=" + element)
 	}
 
+	// Json Enconder
 	enc := json.NewEncoder(file)
 	enc.SetIndent("", "  ")
 
 	// Dump json to the standard output
 	enc.Encode(dataList)
 
+	// Json conversion to CSV
 	jsonConversion()
 
 }
 
+// Checks and ensures that cahced filed along with any previous data has been erased and intialized.
 func fileReinitialize() {
 	err := os.RemoveAll("./data")
 	err1 := os.RemoveAll("./bloodServices_cache")
@@ -116,6 +127,7 @@ func fileReinitialize() {
 
 }
 
+// Json to CSV conversion function
 func jsonConversion() {
 
 	err := godotenv.Load()
@@ -150,34 +162,37 @@ func jsonConversion() {
 
 	spreadsheetId := secretKey
 
+	// Google Services to allow us to initialize to the google shet and load the relevant data obtained
 	var googleServices googlesheet.GoogleSheet
 	if err := googleServices.Init(spreadsheetId); err != nil {
 		log.Fatalf("Unable to init google sheet api: %v\nCredential missing?", err)
 	}
 
-	readRange := "Sheet1!A:E"
+	// Range within the google sheet to allow us to check it's values and reintialize it by clearing it's data
+	readRange := "Cbs_Donoation_Data!A:E"
 	values, err := googleServices.Read(readRange)
-	log.Println((len(values)))
+	// log.Println((len(values)))
 	if err != nil {
 		log.Fatalf("Unable to retrieve data from sheet: %v", err)
 	} else if len(values) >= 0 {
-		clearRange := "Sheet1!A:Z"
+		clearRange := "Cbs_Donoation_Data!A:Z"
 		err = googleServices.Clear(clearRange)
 		if err != nil {
 			log.Fatal(err)
 		}
 	}
-
+	// Initialization of the format the google sheet should be
 	var writeValues [][]interface{}
 	sheet_row := []interface{}{"id", "Country", "Donor Centre", "City", "Address", "Next Availability Date"}
 	writeValues = append(writeValues, sheet_row)
-	err = googleServices.Write("Sheet1", writeValues)
+	err = googleServices.Write("Cbs_Donoation_Data", writeValues)
 	if err != nil {
 		log.Fatal(err)
 	}
 
+	// Iterating over each json data to obtain the data and append it to the Row List of string
 	for index, element := range jsonData {
-		log.Println(index)
+		// log.Println(index)
 		var row []string
 		row = append(row, element.Country)
 		row = append(row, element.Donor_Centre)
@@ -185,14 +200,15 @@ func jsonConversion() {
 		row = append(row, element.Address)
 		row = append(row, element.Date)
 
-		var values []interface{}
-		values = append(values, element.Country, element.Donor_Centre, element.Province_location, element.Address, element.Date)
+		// var values []interface{}
+		// values = append(values, element.Country, element.Donor_Centre, element.Province_location, element.Address, element.Date)
 		time.Sleep(4 * time.Second)
 
+		// Writing of the data into the google sheet.
 		var writeValues [][]interface{}
 		sheet_row := []interface{}{index, element.Country, element.Donor_Centre, element.Province_location, element.Address, element.Date}
 		writeValues = append(writeValues, sheet_row)
-		err = googleServices.Write("Sheet1", writeValues)
+		err = googleServices.Write("Cbs_Donoation_Data", writeValues)
 		if err != nil {
 			log.Fatal(err)
 		}
