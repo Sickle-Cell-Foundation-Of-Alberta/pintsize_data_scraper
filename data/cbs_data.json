@@ -4,20 +4,6 @@
     "Donor_Centre": "Canadian Blood Services, Edmonton",
     "Province_location": "Edmonton, AB, T6G 2R8",
     "Address": "8249 114 St NW",
-    "Date": "2021-07-07"
-  },
-  {
-    "Country": "Canada",
-    "Donor_Centre": "Canadian Blood Services, Edmonton",
-    "Province_location": "Edmonton, AB, T6G 2R8",
-    "Address": "8249 114 St NW",
-    "Date": "2021-07-08"
-  },
-  {
-    "Country": "Canada",
-    "Donor_Centre": "Canadian Blood Services, Edmonton",
-    "Province_location": "Edmonton, AB, T6G 2R8",
-    "Address": "8249 114 St NW",
     "Date": "2021-07-12"
   },
   {
@@ -32,28 +18,7 @@
     "Donor_Centre": "Canadian Blood Services, Edmonton",
     "Province_location": "Edmonton, AB, T6G 2R8",
     "Address": "8249 114 St NW",
-    "Date": "2021-07-14"
-  },
-  {
-    "Country": "Canada",
-    "Donor_Centre": "Canadian Blood Services, Edmonton",
-    "Province_location": "Edmonton, AB, T6G 2R8",
-    "Address": "8249 114 St NW",
-    "Date": "2021-07-15"
-  },
-  {
-    "Country": "Canada",
-    "Donor_Centre": "Canadian Blood Services, Edmonton",
-    "Province_location": "Edmonton, AB, T6G 2R8",
-    "Address": "8249 114 St NW",
     "Date": "2021-07-16"
-  },
-  {
-    "Country": "Canada",
-    "Donor_Centre": "Canadian Blood Services, Edmonton",
-    "Province_location": "Edmonton, AB, T6G 2R8",
-    "Address": "8249 114 St NW",
-    "Date": "2021-07-17"
   },
   {
     "Country": "Canada",
@@ -540,10 +505,45 @@
   },
   {
     "Country": "Canada",
+    "Donor_Centre": "Canadian Blood Services, Edmonton",
+    "Province_location": "Edmonton, AB, T6G 2R8",
+    "Address": "8249 114 St NW",
+    "Date": "2021-10-07"
+  },
+  {
+    "Country": "Canada",
+    "Donor_Centre": "Canadian Blood Services, Edmonton",
+    "Province_location": "Edmonton, AB, T6G 2R8",
+    "Address": "8249 114 St NW",
+    "Date": "2021-10-08"
+  },
+  {
+    "Country": "Canada",
+    "Donor_Centre": "Canadian Blood Services, Edmonton",
+    "Province_location": "Edmonton, AB, T6G 2R8",
+    "Address": "8249 114 St NW",
+    "Date": "2021-10-09"
+  },
+  {
+    "Country": "Canada",
+    "Donor_Centre": "Canadian Blood Services, Edmonton",
+    "Province_location": "Edmonton, AB, T6G 2R8",
+    "Address": "8249 114 St NW",
+    "Date": "2021-10-11"
+  },
+  {
+    "Country": "Canada",
     "Donor_Centre": "Northmount Community Centre.",
     "Province_location": "Edmonton, AB, T5E 6E2",
     "Address": "9208 140 Ave NW",
     "Date": "2021-09-03"
+  },
+  {
+    "Country": "Canada",
+    "Donor_Centre": "Northmount Community Centre.",
+    "Province_location": "Edmonton, AB, T5E 6E2",
+    "Address": "9208 140 Ave NW",
+    "Date": "2021-10-08"
   },
   {
     "Country": "Canada",
@@ -558,13 +558,6 @@
     "Province_location": "Edmonton, AB, T6L 5X2",
     "Address": "3705 Mill Woods Rd E",
     "Date": "2021-08-16"
-  },
-  {
-    "Country": "Canada",
-    "Donor_Centre": "St. Albert Inn",
-    "Province_location": "St. Albert, AB, T8N 0P5",
-    "Address": "156 Saint Albert Trail",
-    "Date": "2021-07-21"
   },
   {
     "Country": "Canada",
@@ -603,10 +596,10 @@
   },
   {
     "Country": "Canada",
-    "Donor_Centre": "West Edmonton Christian Assembly - Gym",
-    "Province_location": "Edmonton, AB, T5T 6N2",
-    "Address": "6315 199 St NW",
-    "Date": "2021-07-28"
+    "Donor_Centre": "Terwillegar Community Church",
+    "Province_location": "Edmonton, AB, T6R 3N9",
+    "Address": "1751 Towne Centre Blvd.",
+    "Date": "2021-07-19"
   },
   {
     "Country": "Canada",
@@ -621,13 +614,6 @@
     "Province_location": "Sherwood Park, AB, T8H 2C5",
     "Address": "298 Bethel Drive",
     "Date": "2021-09-01"
-  },
-  {
-    "Country": "Canada",
-    "Donor_Centre": "Centre in the Park - Community Centre",
-    "Province_location": "Sherwood Park, AB, T8A 3W7",
-    "Address": "401 Festival Lane",
-    "Date": "2021-07-26"
   },
   {
     "Country": "Canada",
@@ -659,13 +645,6 @@
   },
   {
     "Country": "Canada",
-    "Donor_Centre": "Dow Centennial Centre",
-    "Province_location": "Fort Saskatchewan, AB, T8L 4P5",
-    "Address": "8700  84 Street",
-    "Date": "2021-07-27"
-  },
-  {
-    "Country": "Canada",
     "Donor_Centre": "Beaumont Community Centre - Hall B",
     "Province_location": "Beaumont, AB, T4X 1E3",
     "Address": "5204 50 Ave",
@@ -683,21 +662,7 @@
     "Donor_Centre": "Canadian Blood Services, Calgary",
     "Province_location": "Calgary, AB, T2P 4R5",
     "Address": "200 Barclay Parade SW #202",
-    "Date": "2021-07-07"
-  },
-  {
-    "Country": "Canada",
-    "Donor_Centre": "Canadian Blood Services, Calgary",
-    "Province_location": "Calgary, AB, T2P 4R5",
-    "Address": "200 Barclay Parade SW #202",
-    "Date": "2021-07-08"
-  },
-  {
-    "Country": "Canada",
-    "Donor_Centre": "Canadian Blood Services, Calgary",
-    "Province_location": "Calgary, AB, T2P 4R5",
-    "Address": "200 Barclay Parade SW #202",
-    "Date": "2021-07-09"
+    "Date": "2021-07-12"
   },
   {
     "Country": "Canada",
@@ -719,13 +684,6 @@
     "Province_location": "Calgary, AB, T2P 4R5",
     "Address": "200 Barclay Parade SW #202",
     "Date": "2021-07-15"
-  },
-  {
-    "Country": "Canada",
-    "Donor_Centre": "Canadian Blood Services, Calgary",
-    "Province_location": "Calgary, AB, T2P 4R5",
-    "Address": "200 Barclay Parade SW #202",
-    "Date": "2021-07-16"
   },
   {
     "Country": "Canada",
@@ -803,13 +761,6 @@
     "Province_location": "Calgary, AB, T2P 4R5",
     "Address": "200 Barclay Parade SW #202",
     "Date": "2021-07-30"
-  },
-  {
-    "Country": "Canada",
-    "Donor_Centre": "Canadian Blood Services, Calgary",
-    "Province_location": "Calgary, AB, T2P 4R5",
-    "Address": "200 Barclay Parade SW #202",
-    "Date": "2021-07-31"
   },
   {
     "Country": "Canada",
@@ -1209,6 +1160,34 @@
     "Province_location": "Calgary, AB, T2P 4R5",
     "Address": "200 Barclay Parade SW #202",
     "Date": "2021-10-06"
+  },
+  {
+    "Country": "Canada",
+    "Donor_Centre": "Canadian Blood Services, Calgary",
+    "Province_location": "Calgary, AB, T2P 4R5",
+    "Address": "200 Barclay Parade SW #202",
+    "Date": "2021-10-07"
+  },
+  {
+    "Country": "Canada",
+    "Donor_Centre": "Canadian Blood Services, Calgary",
+    "Province_location": "Calgary, AB, T2P 4R5",
+    "Address": "200 Barclay Parade SW #202",
+    "Date": "2021-10-08"
+  },
+  {
+    "Country": "Canada",
+    "Donor_Centre": "Canadian Blood Services, Calgary",
+    "Province_location": "Calgary, AB, T2P 4R5",
+    "Address": "200 Barclay Parade SW #202",
+    "Date": "2021-10-09"
+  },
+  {
+    "Country": "Canada",
+    "Donor_Centre": "Canadian Blood Services, Calgary",
+    "Province_location": "Calgary, AB, T2P 4R5",
+    "Address": "200 Barclay Parade SW #202",
+    "Date": "2021-10-11"
   },
   {
     "Country": "Canada",
@@ -1282,6 +1261,20 @@
   },
   {
     "Country": "Canada",
+    "Donor_Centre": "Acadia Recreation Complex",
+    "Province_location": "Calgary, AB, T2J 6P6",
+    "Address": "240- 90th Ave SE",
+    "Date": "2021-10-09"
+  },
+  {
+    "Country": "Canada",
+    "Donor_Centre": "Dalhousie Community Association",
+    "Province_location": "Calgary, AB, T3A 1V6",
+    "Address": "5432 Dalhart Rd NW",
+    "Date": "2021-08-21"
+  },
+  {
+    "Country": "Canada",
     "Donor_Centre": "Marlborough Park Community Centre",
     "Province_location": "Calgary, AB, T2A 5G9",
     "Address": "6021 Madigan Drive NE",
@@ -1324,31 +1317,10 @@
   },
   {
     "Country": "Canada",
-    "Donor_Centre": "Canadian Blood Services, Red Deer",
-    "Province_location": "Red Deer, AB, T4N 7B4",
-    "Address": "5020 68 St #5",
-    "Date": "2021-07-07"
-  },
-  {
-    "Country": "Canada",
-    "Donor_Centre": "Canadian Blood Services, Red Deer",
-    "Province_location": "Red Deer, AB, T4N 7B4",
-    "Address": "5020 68 St #5",
-    "Date": "2021-07-08"
-  },
-  {
-    "Country": "Canada",
-    "Donor_Centre": "Canadian Blood Services, Red Deer",
-    "Province_location": "Red Deer, AB, T4N 7B4",
-    "Address": "5020 68 St #5",
-    "Date": "2021-07-09"
-  },
-  {
-    "Country": "Canada",
-    "Donor_Centre": "Canadian Blood Services, Red Deer",
-    "Province_location": "Red Deer, AB, T4N 7B4",
-    "Address": "5020 68 St #5",
-    "Date": "2021-07-10"
+    "Donor_Centre": "Cranston Residents Association, Heritage Hall",
+    "Province_location": "Calgary, AB, T3M 0S8",
+    "Address": "11 Cranarch Rd SE",
+    "Date": "2021-10-07"
   },
   {
     "Country": "Canada",
@@ -1692,5 +1664,26 @@
     "Province_location": "Red Deer, AB, T4N 7B4",
     "Address": "5020 68 St #5",
     "Date": "2021-10-06"
+  },
+  {
+    "Country": "Canada",
+    "Donor_Centre": "Canadian Blood Services, Red Deer",
+    "Province_location": "Red Deer, AB, T4N 7B4",
+    "Address": "5020 68 St #5",
+    "Date": "2021-10-07"
+  },
+  {
+    "Country": "Canada",
+    "Donor_Centre": "Canadian Blood Services, Red Deer",
+    "Province_location": "Red Deer, AB, T4N 7B4",
+    "Address": "5020 68 St #5",
+    "Date": "2021-10-08"
+  },
+  {
+    "Country": "Canada",
+    "Donor_Centre": "Canadian Blood Services, Red Deer",
+    "Province_location": "Red Deer, AB, T4N 7B4",
+    "Address": "5020 68 St #5",
+    "Date": "2021-10-09"
   }
 ]
