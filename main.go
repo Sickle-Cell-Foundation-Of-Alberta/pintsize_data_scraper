@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/Sickle-Cell-Foundation-Of-Alberta/pintsize_data_scraper/googlesheet"
@@ -16,6 +17,7 @@ import (
 
 // Implementation of Struct. It is used to group related data to form a single unit.
 type Data struct {
+	Blood_Branch      string
 	Country           string
 	Donor_Centre      string
 	Province_location string
@@ -70,6 +72,10 @@ func main() {
 			} else {
 				data.Province_location = provinceLocation
 			}
+
+			bloodCity := strings.Split(provinceLocation, ", ")
+			data.Blood_Branch = bloodCity[0]
+			log.Println(bloodCity[0])
 
 			address := el.ChildText("div.address1")
 			if address == "" {
@@ -169,7 +175,7 @@ func jsonConversion() {
 	}
 
 	// Range within the google sheet to allow us to check it's values and reintialize it by clearing it's data
-	readRange := "Cbs_Donoation_Data!A:E"
+	readRange := "Cbs_Donoation_Data!A:G"
 	values, err := googleServices.Read(readRange)
 	// log.Println((len(values)))
 	if err != nil {
@@ -183,7 +189,7 @@ func jsonConversion() {
 	}
 	// Initialization of the format the google sheet should be
 	var writeValues [][]interface{}
-	sheet_row := []interface{}{"id", "Country", "Donor Centre", "City", "Address", "Next Availability Date"}
+	sheet_row := []interface{}{"iD", "City", "Country", "Donor Centre", "Location", "Address", "Next Availability Date"}
 	writeValues = append(writeValues, sheet_row)
 	err = googleServices.Write("Cbs_Donoation_Data", writeValues)
 	if err != nil {
@@ -194,19 +200,28 @@ func jsonConversion() {
 	for index, element := range jsonData {
 		// log.Println(index)
 		var row []string
+		row = append(row, element.Blood_Branch)
 		row = append(row, element.Country)
 		row = append(row, element.Donor_Centre)
 		row = append(row, element.Province_location)
 		row = append(row, element.Address)
+
+		const layout = "2006-01-02"
+
+		t, err := time.Parse(layout, element.Date)
+		if err != nil {
+			log.Fatal(err)
+		}
+		element.Date = t.Weekday().String() + " " + element.Date
 		row = append(row, element.Date)
+		time.Sleep(4 * time.Second)
 
 		// var values []interface{}
 		// values = append(values, element.Country, element.Donor_Centre, element.Province_location, element.Address, element.Date)
-		time.Sleep(4 * time.Second)
 
 		// Writing of the data into the google sheet.
 		var writeValues [][]interface{}
-		sheet_row := []interface{}{index, element.Country, element.Donor_Centre, element.Province_location, element.Address, element.Date}
+		sheet_row := []interface{}{index, element.Blood_Branch, element.Country, element.Donor_Centre, element.Province_location, element.Address, element.Date}
 		writeValues = append(writeValues, sheet_row)
 		err = googleServices.Write("Cbs_Donoation_Data", writeValues)
 		if err != nil {
