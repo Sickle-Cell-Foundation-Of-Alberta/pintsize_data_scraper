@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 
@@ -17,6 +18,7 @@ import (
 
 // Implementation of Struct. It is used to group related data to form a single unit.
 type Data struct {
+	uniqueID          string
 	Blood_Branch      string
 	Country           string
 	Donor_Centre      string
@@ -59,6 +61,7 @@ func main() {
 		// Iterate over every li components to construct the relevant info/data
 		// Correspond each data value with it's correct div
 		e.ForEach("li", func(_ int, el *colly.HTMLElement) {
+			// data.uniqueID = strconv.Itoa(i)
 			donorCentre := el.ChildText("div.title h3")
 			if donorCentre == "" {
 				log.Println("No province found", e.Request)
@@ -75,7 +78,6 @@ func main() {
 
 			bloodCity := strings.Split(provinceLocation, ", ")
 			data.Blood_Branch = bloodCity[0]
-			log.Println(bloodCity[0])
 
 			address := el.ChildText("div.address1")
 			if address == "" {
@@ -198,8 +200,16 @@ func jsonConversion() {
 
 	// Iterating over each json data to obtain the data and append it to the Row List of string
 	for index, element := range jsonData {
-		// log.Println(index)
+		initial := 0
+		if index < 10 {
+			element.uniqueID = strconv.Itoa(initial) + strconv.Itoa(initial) + strconv.Itoa(index)
+		} else if index >= 10 && index < 100 {
+			element.uniqueID = strconv.Itoa(initial) + strconv.Itoa(index)
+		} else {
+			element.uniqueID = strconv.Itoa(index)
+		}
 		var row []string
+		row = append(row, element.uniqueID)
 		row = append(row, element.Blood_Branch)
 		row = append(row, element.Country)
 		row = append(row, element.Donor_Centre)
@@ -221,7 +231,7 @@ func jsonConversion() {
 
 		// Writing of the data into the google sheet.
 		var writeValues [][]interface{}
-		sheet_row := []interface{}{index, element.Blood_Branch, element.Country, element.Donor_Centre, element.Province_location, element.Address, element.Date}
+		sheet_row := []interface{}{element.uniqueID, element.Blood_Branch, element.Country, element.Donor_Centre, element.Province_location, element.Address, element.Date}
 		writeValues = append(writeValues, sheet_row)
 		err = googleServices.Write("Cbs_Donoation_Data", writeValues)
 		if err != nil {
